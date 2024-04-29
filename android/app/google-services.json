@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "58397712888",
+    "project_id": "signlt",
+    "storage_bucket": "signlt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58397712888:android:71c4d3d0765ae2c118760d",
+        "android_client_info": {
+          "package_name": "com.example.ht_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58397712888-m33uvaeeo74unt2rre6l9mv2i6agusas.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKuR_YEwjczH03eheYtSficDtJo9Vhus0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "58397712888-m33uvaeeo74unt2rre6l9mv2i6agusas.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "58397712888-hf2iu6loghrj9376tk9mq9ooif95j4dq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ht2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
