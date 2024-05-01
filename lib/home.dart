@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage>
           Align(
             alignment: Alignment.topRight,
             child: Padding(
-              padding: const EdgeInsets.only(top: 20, right: 70, left: 20),
+              padding: const EdgeInsets.only(top: 30, right: 70, left: 20),
               child: AnimatedOpacity(
                 opacity: _opacityAnimation.value,
                 duration: Duration(milliseconds: 1500),
@@ -119,11 +119,11 @@ class _HomePageState extends State<HomePage>
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 20),
+                SizedBox(height: 90),
                 RealTimeTranslationButton(),
                 SizedBox(height: 20),
                 LearningHubButton(),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
                 FeedbackButton(),
                 SizedBox(height: 10),
                 Container(
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage>
             ),
           ),
           Positioned(
-            top: 10,
+            top: 20,
             right: 10,
             child: Container(
               decoration: BoxDecoration(

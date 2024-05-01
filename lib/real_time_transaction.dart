@@ -4,13 +4,10 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
-List<CameraDescription> cameras = []; // Declare cameras globally
+List<CameraDescription> cameras = [];
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -172,8 +169,6 @@ class RealTimeTranslationPage extends StatelessWidget {
   }
 }
 
-// Camera open part
-
 void _openCamera(BuildContext context) async {
   final cameras = await availableCameras();
   final firstCamera = cameras.first;
@@ -195,7 +190,7 @@ class CameraScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CameraScreenState createState() => _CameraScreenState(); //global variable
+  _CameraScreenState createState() => _CameraScreenState();
 }
 
 class _CameraScreenState extends State<CameraScreen> {
@@ -242,11 +237,8 @@ class _CameraScreenState extends State<CameraScreen> {
                   left: 0,
                   right: 0,
                   child: Container(
-                    color: Colors.white.withOpacity(
-                        0.5), // Change the color and opacity as needed
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8), // Adjust padding as needed
+                    color: Colors.white.withOpacity(0.5),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Text(
                       apiResponse,
                       style: TextStyle(
@@ -302,9 +294,11 @@ class _CameraScreenState extends State<CameraScreen> {
 
           imagePaths.add(imagePath);
           print('Captured image $count: $imagePath');
+
+          await _uploadImage(imagePath, count);
+
           if (count == totalImages) {
             timer.cancel();
-            _uploadImages(imagePaths);
           }
         } else {
           timer.cancel();
@@ -315,50 +309,46 @@ class _CameraScreenState extends State<CameraScreen> {
     }
   }
 
-  void _uploadImages(List<String> imagePaths) async {
+  Future<void> _uploadImage(String imagePath, int imageIndex) async {
     try {
-      var uri =
-          Uri.parse('https://7a66-112-134-220-152.ngrok-free.app/predict');
+      var uri = Uri.parse(
+          'https://3e9c-2402-4000-21c2-d2f7-1c77-8c76-9a07-81c8.ngrok-free.app/predict');
       var request = http.MultipartRequest('POST', uri);
 
-      for (var imagePath in imagePaths) {
-        var imageFile = File(imagePath);
-        var stream = http.ByteStream(imageFile.openRead());
-        var length = await imageFile.length();
+      var imageFile = File(imagePath);
+      var stream = http.ByteStream(imageFile.openRead());
+      var length = await imageFile.length();
 
-        var multipartFile = http.MultipartFile(
-          'file',
-          stream,
-          length,
-          filename: imagePath.split('/').last,
-        );
+      var multipartFile = http.MultipartFile(
+        'file',
+        stream,
+        length,
+        filename: imagePath.split('/').last,
+      );
 
-        request.files.add(multipartFile);
-      }
+      request.files.add(multipartFile);
 
       var streamedResponse = await request.send();
       var response = await http.Response.fromStream(streamedResponse);
 
-      print('Response status code: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      print(
+          'Response status code for image $imageIndex: ${response.statusCode}');
+      print('Response body for image $imageIndex: ${response.body}');
 
       if (response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
 
-        // Extract words from response
         String concatenatedWords =
             jsonResponse.map((item) => item['word']).join(' ');
 
-        // Set words in state
         setState(() {
           apiResponse = concatenatedWords;
         });
       } else {
-        // Handle errors here
-        print('Error: ${response.statusCode}');
+        print('Error for image $imageIndex: ${response.statusCode}');
       }
     } catch (e) {
-      print('Exception while calling API: $e');
+      print('Exception while calling API for image $imageIndex: $e');
     }
   }
 
