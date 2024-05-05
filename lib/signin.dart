@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ht_2/signup.dart';
 import 'home.dart';
 
@@ -27,6 +28,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -94,20 +96,67 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 SizedBox(height: 40),
                 ElevatedButton(
-                  onPressed: () {
-                    // Implement your sign-in logic here
-                    // String email = _emailController.text;
-                    // String password = _passwordController.text;
+                  onPressed: () async {
+                    String email = _emailController.text.trim();
+                    String password = _passwordController.text.trim();
 
-                    // Here, you would typically perform authentication and validation
-                    // For demo purposes, let's assume the sign-in is successful
-                    bool signInSuccessful = true;
+                    try {
+                      // Sign in with email and password
+                      await _auth.signInWithEmailAndPassword(
+                        email: email,
+                        password: password,
+                      );
 
-                    if (signInSuccessful) {
-                      // Navigate to the home page if sign-in is successful
+                      // Navigate to home page if sign-in is successful
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    } catch (e) {
+                      print('Error signing in: $e');
+                      // Handle sign-in errors (e.g., invalid email/password)
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Error !',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                )),
+                            content: Text('Invalid email or password.',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  shadows: [
+                                    Shadow(
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      offset: Offset(1, 1),
+                                      blurRadius: 6,
+                                    ),
+                                  ],
+                                )),
+                            backgroundColor: Colors.white.withOpacity(0.3),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(
+                                    color: Colors.yellow,
+                                    shadows: [
+                                      Shadow(
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        offset: Offset(1, 1),
+                                        blurRadius: 6,
+                                      ),
+                                    ], // Change text color to orange
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       );
                     }
                   },
@@ -137,7 +186,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     TextButton(
                       onPressed: () {
-                        // Navigate to the SignInPage
+                        // Navigate to the SignUpPage
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => SignUpPage()),

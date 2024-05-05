@@ -76,7 +76,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
             SlideTransition(
               position: _logoOffsetAnimation,
               child: Image.asset(
-                'assets/images/logo.png', // Replace with your icon image path
+                'assets/images/logo2.png', // Replace with your icon image path
                 width: 200,
                 height: 200,
                 // Set fit according to your requirement

@@ -91,6 +91,7 @@ flutter:
   - assets/images/dic.webp
   - assets/images/bg4.jpg
   - assets/images/bg5.jpg
+  - assets/images/logo2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

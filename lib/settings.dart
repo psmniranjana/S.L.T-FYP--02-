@@ -185,35 +185,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'Dark Mode',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                // ListTile with a Switch wrapped in a Container to add a border to the Switch
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Color.fromARGB(
-                          255, 179, 20, 20), // Border color set to maroon
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: ListTile(
-                    title: Text('Dark Mode'),
-                    trailing: Switch(
-                      value: false, // Replace with actual value
-                      onChanged: (value) {
-                        // Toggle dark mode
-                      },
-                      activeTrackColor: Color.fromARGB(255, 179, 20,
-                          20), // Change active track color to orange
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

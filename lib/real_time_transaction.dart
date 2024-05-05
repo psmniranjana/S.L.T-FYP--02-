@@ -42,7 +42,7 @@ class RealTimeTranslationPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 40),
+            SizedBox(height: 80),
             Container(
               padding: EdgeInsets.only(top: 40),
               child: Center(
@@ -63,7 +63,7 @@ class RealTimeTranslationPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 0),
             Expanded(
               child: Align(
                 alignment: Alignment.center,
@@ -107,51 +107,6 @@ class RealTimeTranslationPage extends StatelessWidget {
                               backgroundColor: Colors.transparent,
                               shadowColor: Color.fromARGB(74, 0, 0, 0),
                               padding: EdgeInsets.all(20),
-                            ),
-                            child: Text(''),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 40),
-                    // New section for microphone button
-                    Stack(
-                      children: [
-                        Container(
-                          width: 150,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromARGB(6, 238, 230, 214)
-                                    .withOpacity(0.6),
-                                spreadRadius: 5,
-                                blurRadius: 9,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 150,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/mic.webp'),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // Add your onPressed logic here for Live Translation
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: CircleBorder(),
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Color.fromARGB(73, 0, 0, 0),
-                              padding: EdgeInsets.all(30),
                             ),
                             child: Text(''),
                           ),
@@ -251,9 +206,6 @@ class _CameraScreenState extends State<CameraScreen> {
                   ),
                 ),
                 Positioned(
-                  bottom: 20.0,
-                  left: 0,
-                  right: 0,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -311,8 +263,8 @@ class _CameraScreenState extends State<CameraScreen> {
 
   Future<void> _uploadImage(String imagePath, int imageIndex) async {
     try {
-      var uri = Uri.parse(
-          'https://3e9c-2402-4000-21c2-d2f7-1c77-8c76-9a07-81c8.ngrok-free.app/predict');
+      var uri =
+          Uri.parse('https://c65e-112-134-220-237.ngrok-free.app/predict');
       var request = http.MultipartRequest('POST', uri);
 
       var imageFile = File(imagePath);

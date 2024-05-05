@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ht_2/signin.dart'; // Import the sign-in page file
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -82,10 +83,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   // Container for text fields
                   Container(
                     height: 200,
+                    width: 370,
                     padding: EdgeInsets.symmetric(horizontal: 30),
                     decoration: BoxDecoration(
-                      color:
-                          Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+                      color: Color.fromARGB(47, 213, 206, 206).withOpacity(0.3),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
@@ -150,44 +151,87 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 130),
+                  SizedBox(height: 50),
                   // Buttons row
                   Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    padding: EdgeInsets.only(bottom: 10, right: 30),
+                    child: Column(
                       children: [
-                        // Save Changes button
-                        ElevatedButton(
-                          onPressed: () {
-                            // Implement logic to save changes
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.yellow,
-                          ),
-                          child: Text(
-                            'Save Changes',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 182, 17, 17),
+                        // Logout section
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // Text for "Log out"
+                            Padding(
+                              padding: const EdgeInsets.only(left: 250),
+                              child: Text(
+                                'Log out',
+                                style: TextStyle(
+                                  color: Colors.orange,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                          ),
+                            // Logout icon button
+                            IconButton(
+                              onPressed: () {
+                                // Navigate to the sign-in page
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignInPage()),
+                                );
+                              },
+                              icon: Icon(
+                                Icons.logout,
+                                color: Colors.orange,
+                              ),
+                            ),
+                          ],
                         ),
-                        // Cancel button
-                        SizedBox(width: 20),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(
-                                context); // Navigate back without saving changes
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 179, 20, 20),
-                          ),
-                          child: Text(
-                            'Cancel',
-                            style: TextStyle(
-                              color: Colors.yellow,
+                        SizedBox(height: 30), // Adding space between sections
+                        // Buttons section
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 40),
                             ),
-                          ),
+                            // Save Changes button
+                            ElevatedButton(
+                              onPressed: () {
+                                // Implement logic to save changes
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.yellow,
+                              ),
+                              child: Text(
+                                'Save Changes',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 182, 17, 17),
+                                ),
+                              ),
+                            ),
+                            // Cancel button
+                            SizedBox(width: 20),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(
+                                    context); // Navigate back without saving changes
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Color.fromARGB(255, 179, 20, 20),
+                              ),
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: Colors.yellow,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

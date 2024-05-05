@@ -160,50 +160,217 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   ElevatedButton _buildSignUpButton() {
+    bool _isLoading = false; // Add a boolean to track loading state
+
     return ElevatedButton(
-      onPressed: () async {
-        String email = _emailController.text;
-        String password = _passwordController.text;
-        String confirmPassword = _confirmPasswordController.text;
+      onPressed: _isLoading
+          ? null
+          : () async {
+              // Disable button when loading
+              setState(() {
+                _isLoading = true; // Set loading state to true
+              });
 
-        if (password == confirmPassword) {
-          try {
-            // Create user with email and password
-            UserCredential userCredential =
-                await _auth.createUserWithEmailAndPassword(
-              email: email,
-              password: password,
-            );
+              String email = _emailController.text.trim();
+              String password = _passwordController.text.trim();
+              String confirmPassword = _confirmPasswordController.text.trim();
 
-            // Add user data to Firestore
-            await _firestore
-                .collection('users')
-                .doc(userCredential.user!.uid)
-                .set({
-              'email': email,
-              // Add other user information here if needed
-            });
+              if (email.isEmpty || password.isEmpty) {
+                // Show alert if email or password is empty
+                setState(() {
+                  _isLoading = false;
+                });
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Error !',
+                          style: TextStyle(
+                            color: Colors.white,
+                          )),
+                      content: Text('Please enter email and password.',
+                          style: TextStyle(
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                offset: Offset(1, 1),
+                                blurRadius: 6,
+                              ),
+                            ],
+                          )),
+                      backgroundColor: Colors.white.withOpacity(0.3),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'OK',
+                            style: TextStyle(
+                              color: Colors.yellow,
+                              shadows: [
+                                Shadow(
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  offset: Offset(1, 1),
+                                  blurRadius: 6,
+                                ),
+                              ], // Change text color to orange
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                return;
+              }
+              if (password.length < 6) {
+                setState(() {
+                  _isLoading = false;
+                });
+                // Show alert if password length is less than 6 characters
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Error !',
+                          style: TextStyle(
+                            color: Colors.white,
+                          )),
+                      content:
+                          Text('Password must be at least 6 characters long.',
+                              style: TextStyle(
+                                color: Colors.white,
+                                shadows: [
+                                  Shadow(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    offset: Offset(1, 1),
+                                    blurRadius: 6,
+                                  ),
+                                ],
+                              )),
+                      backgroundColor: Colors.white.withOpacity(0.3),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'OK',
+                            style: TextStyle(
+                              color: Colors.yellow,
+                              shadows: [
+                                Shadow(
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  offset: Offset(1, 1),
+                                  blurRadius: 6,
+                                ),
+                              ], // Change text color to orange
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                return;
+              }
 
-            // Navigate to the home page
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            );
-          } catch (e) {
-            print('Error signing up: $e');
-            // Handle error message/display
-          }
-        } else {
-          // Passwords don't match, display error message
-        }
-      },
-      child: Text(
-        'Sign Up',
-        style: TextStyle(
-          color: Color.fromARGB(255, 116, 51, 13),
-          fontSize: 17,
-        ),
-      ),
+              if (password != confirmPassword) {
+                // Show alert if passwords don't match
+                setState(() {
+                  _isLoading = false;
+                });
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Error !',
+                          style: TextStyle(
+                            color: Colors.white,
+                          )),
+                      content: Text('Passwords do not match.',
+                          style: TextStyle(
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                offset: Offset(1, 1),
+                                blurRadius: 6,
+                              ),
+                            ],
+                          )),
+                      backgroundColor: Colors.white.withOpacity(0.3),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'OK',
+                            style: TextStyle(
+                              color: Colors.yellow,
+                              shadows: [
+                                Shadow(
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  offset: Offset(1, 1),
+                                  blurRadius: 6,
+                                ),
+                              ], // Change text color to orange
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+                return;
+              }
+
+              try {
+                // Create user with email and password
+                UserCredential userCredential =
+                    await _auth.createUserWithEmailAndPassword(
+                  email: email,
+                  password: password,
+                );
+
+                // Add user data to Firestore
+                await _firestore
+                    .collection('users')
+                    .doc(userCredential.user!.uid)
+                    .set({
+                  'email': email,
+                  // Add other user information here if needed
+                });
+                // Delay navigation by 2 seconds to show buffering icon
+                await Future.delayed(Duration(seconds: 2));
+
+                // Navigate to the home page
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              } catch (e) {
+                print('Error signing up: $e');
+                // Handle error message/display
+              } finally {
+                // Set loading state back to false after navigation
+                setState(() {
+                  _isLoading = false;
+                });
+              }
+            },
+      child: _isLoading // Show different child based on loading state
+          ? CircularProgressIndicator() // Show loading indicator if loading
+          : Text(
+              'Sign Up',
+              style: TextStyle(
+                color: Color.fromARGB(255, 116, 51, 13),
+                fontSize: 17,
+              ),
+            ),
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color.fromARGB(255, 255, 203, 59),
       ),
