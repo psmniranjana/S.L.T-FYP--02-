@@ -264,7 +264,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Future<void> _uploadImage(String imagePath, int imageIndex) async {
     try {
       var uri =
-          Uri.parse('https://c65e-112-134-220-237.ngrok-free.app/predict');
+          Uri.parse('https://3cd4-112-134-220-237.ngrok-free.app/predict');
       var request = http.MultipartRequest('POST', uri);
 
       var imageFile = File(imagePath);
