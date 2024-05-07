@@ -42,9 +42,9 @@ class RealTimeTranslationPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 80),
+            SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.only(top: 40),
+              padding: EdgeInsets.only(top: 80),
               child: Center(
                 child: Text(
                   'Real-Time Translation',
@@ -79,8 +79,7 @@ class RealTimeTranslationPage extends StatelessWidget {
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: Color.fromARGB(167, 255, 252, 252)
-                                    .withOpacity(0.5),
+                                color: Colors.black.withOpacity(0.3),
                                 spreadRadius: 5,
                                 blurRadius: 7,
                                 offset: Offset(0, 3),
@@ -94,7 +93,7 @@ class RealTimeTranslationPage extends StatelessWidget {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              image: AssetImage('assets/images/cam.webp'),
+                              image: AssetImage('assets/images/cam3.png'),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -153,23 +152,95 @@ class _CameraScreenState extends State<CameraScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
   bool _isFrontCamera = false;
+  late Timer _timer;
+  int _imageCount = 0;
+  List<String> _imagePaths = [];
 
   @override
   void initState() {
     super.initState();
     _controller = CameraController(
       widget.camera,
-      ResolutionPreset.medium,
+      ResolutionPreset.high,
     );
+
     _initializeControllerFuture = _controller.initialize();
 
-    _takePictures(60);
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_imageCount < 60) {
+        _takePicture();
+      } else {
+        timer.cancel();
+      }
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _timer.cancel();
     super.dispose();
+  }
+
+  Future<void> _takePicture() async {
+    try {
+      await _initializeControllerFuture;
+      _imageCount++;
+      final image = await _controller.takePicture();
+      final directory = await getTemporaryDirectory();
+      final imagePath = '${directory.path}/image$_imageCount.jpg';
+      final File newImage = await File(image.path).copy(imagePath);
+
+      _imagePaths.add(imagePath);
+      print('Captured image $_imageCount: $imagePath');
+
+      await _uploadImage(imagePath, _imageCount);
+    } catch (e) {
+      print('Error taking picture: $e');
+    }
+  }
+
+  Future<void> _uploadImage(String imagePath, int imageIndex) async {
+    try {
+      var uri =
+          Uri.parse('https://6e7e-112-134-221-104.ngrok-free.app/predict');
+      var request = http.MultipartRequest('POST', uri);
+
+      var imageFile = File(imagePath);
+      var stream = http.ByteStream(imageFile.openRead());
+      var length = await imageFile.length();
+
+      var multipartFile = http.MultipartFile(
+        'file',
+        stream,
+        length,
+        filename: imagePath.split('/').last,
+      );
+
+      request.files.add(multipartFile);
+
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      print(
+          'Response status code for image $imageIndex: ${response.statusCode}');
+      print('Response body for image $imageIndex: ${response.body}');
+
+      if (response.statusCode == 200) {
+        var jsonResponse = json.decode(response.body);
+
+        String concatenatedWords =
+            jsonResponse.map((item) => item['word']).join(' ');
+
+        setState(() {
+          apiResponse = concatenatedWords;
+        });
+      } else {
+        print('Error for image $imageIndex: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception while calling API for image $imageIndex: $e');
+    }
   }
 
   @override
@@ -209,10 +280,6 @@ class _CameraScreenState extends State<CameraScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      FloatingActionButton(
-                        onPressed: () => _takePictures(1),
-                        child: Icon(Icons.camera),
-                      ),
                       IconButton(
                         onPressed: _switchCamera,
                         icon: Icon(Icons.flip_camera_ios),
@@ -228,80 +295,6 @@ class _CameraScreenState extends State<CameraScreen> {
         },
       ),
     );
-  }
-
-  void _takePictures(int totalImages) async {
-    try {
-      await _initializeControllerFuture;
-      int count = 0;
-      List<String> imagePaths = [];
-
-      Timer.periodic(Duration(seconds: 1), (Timer timer) async {
-        if (count < totalImages) {
-          count++;
-          final image = await _controller.takePicture();
-          final directory = await getTemporaryDirectory();
-          final imagePath = '${directory.path}/image$count.jpg';
-          final File newImage = await File(image.path).copy(imagePath);
-
-          imagePaths.add(imagePath);
-          print('Captured image $count: $imagePath');
-
-          await _uploadImage(imagePath, count);
-
-          if (count == totalImages) {
-            timer.cancel();
-          }
-        } else {
-          timer.cancel();
-        }
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future<void> _uploadImage(String imagePath, int imageIndex) async {
-    try {
-      var uri =
-          Uri.parse('https://3cd4-112-134-220-237.ngrok-free.app/predict');
-      var request = http.MultipartRequest('POST', uri);
-
-      var imageFile = File(imagePath);
-      var stream = http.ByteStream(imageFile.openRead());
-      var length = await imageFile.length();
-
-      var multipartFile = http.MultipartFile(
-        'file',
-        stream,
-        length,
-        filename: imagePath.split('/').last,
-      );
-
-      request.files.add(multipartFile);
-
-      var streamedResponse = await request.send();
-      var response = await http.Response.fromStream(streamedResponse);
-
-      print(
-          'Response status code for image $imageIndex: ${response.statusCode}');
-      print('Response body for image $imageIndex: ${response.body}');
-
-      if (response.statusCode == 200) {
-        var jsonResponse = json.decode(response.body);
-
-        String concatenatedWords =
-            jsonResponse.map((item) => item['word']).join(' ');
-
-        setState(() {
-          apiResponse = concatenatedWords;
-        });
-      } else {
-        print('Error for image $imageIndex: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Exception while calling API for image $imageIndex: $e');
-    }
   }
 
   void _switchCamera() async {

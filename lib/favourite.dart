@@ -40,7 +40,7 @@ class _FavoritePageState extends State<FavoritePage> {
               children: <Widget>[
                 SizedBox(height: 45),
                 Text(
-                  'Your Favorite Sites',
+                  'Your Favourite Sites',
                   style: TextStyle(
                     fontSize: 24,
                     color: Color.fromARGB(255, 232, 195, 28),
