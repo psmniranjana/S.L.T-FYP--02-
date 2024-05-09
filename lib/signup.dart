@@ -12,10 +12,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sign Up Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: SignUpPage(),
     );
   }
@@ -27,6 +23,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
@@ -47,7 +44,7 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Center(
           child: Container(
             width: 350,
-            height: 500,
+            height: 650,
             padding: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
@@ -71,6 +68,16 @@ class _SignUpPageState extends State<SignUpPage> {
                           blurRadius: 6,
                         ),
                       ],
+                    ),
+                  ),
+                  SizedBox(height: 16.0),
+                  TextField(
+                    controller: _usernameController,
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      labelStyle: TextStyle(
+                        color: Color.fromARGB(230, 255, 255, 255),
+                      ),
                     ),
                   ),
                   SizedBox(height: 16.0),
@@ -172,12 +179,13 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _signUp() async {
+    String username = _usernameController.text.trim();
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
     String confirmPassword = _confirmPasswordController.text.trim();
 
-    if (email.isEmpty || password.isEmpty) {
-      _showErrorDialog('Please enter email and password.');
+    if (username.isEmpty || email.isEmpty || password.isEmpty) {
+      _showErrorDialog('Please enter username, email, and password.');
       return;
     }
 
@@ -199,6 +207,7 @@ class _SignUpPageState extends State<SignUpPage> {
       );
 
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'username': username,
         'email': email,
       });
 

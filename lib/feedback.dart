@@ -8,10 +8,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Feedback Page',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: FeedbackPage(),
     );
   }
@@ -29,11 +25,124 @@ class _FeedbackPageState extends State<FeedbackPage> {
   bool _anonymousVote = false;
 
   void _submitFeedback() {
-    // Implement your submit feedback logic here
+    // Check if all necessary fields are filled
+    if (_rating == 0 || _comment.isEmpty || _recognitionIssueComment.isEmpty) {
+      // If any field is empty, show a message box
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error!',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 177, 44, 44),
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      color: Color.fromARGB(255, 170, 165, 165),
+                      offset: Offset(2, 2),
+                      blurRadius: 3,
+                    ),
+                  ],
+                )),
+            content: Text('Please fill the sections.',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  shadows: [
+                    Shadow(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      offset: Offset(1, 1),
+                      blurRadius: 6,
+                    ),
+                  ],
+                )),
+            backgroundColor: Colors.white.withOpacity(0.3),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'OK',
+                  style: TextStyle(
+                    color: Colors.yellow,
+                    shadows: [
+                      Shadow(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        offset: Offset(1, 1),
+                        blurRadius: 6,
+                      ),
+                    ], // Change text color to orange
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+      return; // Stop the submission process
+    }
+
+    // If all fields are filled, proceed with the submission
     print('Rating: $_rating');
     print('Comment: $_comment');
     print('Recognition Issue Comment: $_recognitionIssueComment');
     print('Anonymous Vote: $_anonymousVote');
+
+    // Clear the filled data
+    setState(() {
+      _rating = 0;
+      _comment = '';
+      _recognitionIssueComment = '';
+      _anonymousVote = false;
+    });
+
+    // Show dialog to confirm feedback submission
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Feedback Submitted',
+              style: TextStyle(
+                color: Colors.white,
+              )),
+          content:
+              Text('Your feedback has been successfully submitted, Thank You!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    shadows: [
+                      Shadow(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        offset: Offset(1, 1),
+                        blurRadius: 6,
+                      ),
+                    ],
+                  )),
+          backgroundColor: Colors.white.withOpacity(0.3),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.yellow,
+                  shadows: [
+                    Shadow(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      offset: Offset(1, 1),
+                      blurRadius: 6,
+                    ),
+                  ], // Change text color to orange
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget _buildFeedbackText() {
@@ -86,35 +195,45 @@ class _FeedbackPageState extends State<FeedbackPage> {
           ],
         ),
         SizedBox(height: 8.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.star,
-                  color: _rating >= 1 ? Colors.yellow : Colors.grey),
-              onPressed: () => setState(() => _rating = 1),
-            ),
-            IconButton(
-              icon: Icon(Icons.star,
-                  color: _rating >= 2 ? Colors.yellow : Colors.grey),
-              onPressed: () => setState(() => _rating = 2),
-            ),
-            IconButton(
-              icon: Icon(Icons.star,
-                  color: _rating >= 3 ? Colors.yellow : Colors.grey),
-              onPressed: () => setState(() => _rating = 3),
-            ),
-            IconButton(
-              icon: Icon(Icons.star,
-                  color: _rating >= 4 ? Colors.yellow : Colors.grey),
-              onPressed: () => setState(() => _rating = 4),
-            ),
-            IconButton(
-              icon: Icon(Icons.star,
-                  color: _rating >= 5 ? Colors.yellow : Colors.grey),
-              onPressed: () => setState(() => _rating = 5),
-            ),
-          ],
+        Container(
+          width: 300,
+          height: 60,
+          padding: EdgeInsets.all(10.0), // Add padding to the container
+          decoration: BoxDecoration(
+            color: Color.fromARGB(82, 104, 101, 101)
+                .withOpacity(0.3), // Set background color
+            borderRadius: BorderRadius.circular(10.0), // Add border radius
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.star,
+                    color: _rating >= 1 ? Colors.yellow : Colors.grey),
+                onPressed: () => setState(() => _rating = 1),
+              ),
+              IconButton(
+                icon: Icon(Icons.star,
+                    color: _rating >= 2 ? Colors.yellow : Colors.grey),
+                onPressed: () => setState(() => _rating = 2),
+              ),
+              IconButton(
+                icon: Icon(Icons.star,
+                    color: _rating >= 3 ? Colors.yellow : Colors.grey),
+                onPressed: () => setState(() => _rating = 3),
+              ),
+              IconButton(
+                icon: Icon(Icons.star,
+                    color: _rating >= 4 ? Colors.yellow : Colors.grey),
+                onPressed: () => setState(() => _rating = 4),
+              ),
+              IconButton(
+                icon: Icon(Icons.star,
+                    color: _rating >= 5 ? Colors.yellow : Colors.grey),
+                onPressed: () => setState(() => _rating = 5),
+              ),
+            ],
+          ),
         ),
         SizedBox(height: 20.0),
         TextField(
@@ -152,10 +271,10 @@ class _FeedbackPageState extends State<FeedbackPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Save Changes button
+              // Submit button
               ElevatedButton(
                 onPressed: () {
-                  // Implement logic to save changes
+                  _submitFeedback(); // Call the submit feedback function
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.yellow,

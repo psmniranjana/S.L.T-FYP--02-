@@ -15,10 +15,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Home Page',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       routes: {
         '/real_time_translation': (context) => RealTimeTranslationPage(),
         '/feedbacks': (context) => FeedbackPage(),
@@ -42,7 +38,7 @@ class _HomePageState extends State<HomePage>
   late Animation<double> _opacityAnimation;
 
   // Variable to store the user's name
-  String _userName = '';
+  String get _username => '';
 
   @override
   void initState() {
@@ -95,7 +91,7 @@ class _HomePageState extends State<HomePage>
                 child: SlideTransition(
                   position: _slideAnimation,
                   child: Text(
-                    'Hello, $_userName',
+                    'Hello, $_username',
                     style: TextStyle(
                       fontSize: 20,
                       color: Color.fromARGB(255, 100, 13, 13),

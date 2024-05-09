@@ -9,8 +9,8 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  String _userName = '';
-  String _userEmail = '';
+  String _username = ''; // Change to regular instance variable
+  String _email = ''; // Change to regular instance variable
   File? _image; // Store the selected image file
 
   // Function to open gallery and select image
@@ -124,7 +124,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           ),
                           onChanged: (value) {
-                            _userName = value;
+                            setState(() {
+                              _username =
+                                  value; // Assign value to _username using setState
+                            });
                           },
                         ),
                         SizedBox(height: 20),
@@ -145,7 +148,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           ),
                           onChanged: (value) {
-                            _userEmail = value;
+                            setState(() {
+                              _email =
+                                  value; // Assign value to _email using setState
+                            });
                           },
                         ),
                       ],
