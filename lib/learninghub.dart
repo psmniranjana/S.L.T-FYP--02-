@@ -1,8 +1,6 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
-import 'lhone.dart'; // Import lhone.dart
-import 'lhtwo.dart'; // Import lhtwo.dart
+import 'lhone.dart';
+import 'lhtwo.dart';
 
 class LearningHubPage extends StatelessWidget {
   @override
@@ -11,7 +9,7 @@ class LearningHubPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/bg4.jpg'), // Your image path here
+            image: AssetImage('assets/images/bg4.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -44,9 +42,9 @@ class LearningHubPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 20), // Add padding
+                      padding: const EdgeInsets.only(left: 20),
                       child: Align(
-                        alignment: Alignment.centerLeft, // Align to page left
+                        alignment: Alignment.centerLeft,
                         child: Stack(
                           children: [
                             Container(
@@ -70,7 +68,7 @@ class LearningHubPage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(20),
                                         image: DecorationImage(
                                           image: AssetImage(
-                                              'assets/images/LH1.png'), // Replace with your image path
+                                              'assets/images/LH1.png'),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -130,8 +128,7 @@ class LearningHubPage extends StatelessWidget {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(
-                                                height: 15), // Add line space
+                                            SizedBox(height: 15),
                                             Text(
                                               'Vocabulary Building Exercises, ',
                                               style: TextStyle(
@@ -150,8 +147,7 @@ class LearningHubPage extends StatelessWidget {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(
-                                                height: 15), // Add line space
+                                            SizedBox(height: 15),
                                             Text(
                                               'Grammar and Structure',
                                               style: TextStyle(
@@ -200,9 +196,9 @@ class LearningHubPage extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.only(right: 20), // Add padding
+                      padding: const EdgeInsets.only(right: 20),
                       child: Align(
-                        alignment: Alignment.centerRight, // Align to page right
+                        alignment: Alignment.centerRight,
                         child: Stack(
                           children: [
                             Container(
@@ -226,14 +222,13 @@ class LearningHubPage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(20),
                                         image: DecorationImage(
                                           image: AssetImage(
-                                              'assets/images/dic.webp'), // Replace with your image path
+                                              'assets/images/dic.webp'),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
                                   ),
                                   Center(
-                                    // Align text to center
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Colors.transparent,
@@ -263,7 +258,6 @@ class LearningHubPage extends StatelessWidget {
                                           );
                                         },
                                         child: Center(
-                                          // Align text to center
                                           child: Text(
                                             "Dictionary Feature",
                                             style: TextStyle(

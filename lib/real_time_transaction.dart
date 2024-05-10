@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -99,7 +98,7 @@ class RealTimeTranslationPage extends StatelessWidget {
                           ),
                           child: ElevatedButton(
                             onPressed: () {
-                              _openCamera(context);
+                              _openCamera(context); // open the camera
                             },
                             style: ElevatedButton.styleFrom(
                               shape: CircleBorder(),
@@ -148,7 +147,7 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
-  String apiResponse = '';
+  String apiResponse = ''; 
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
   bool _isFrontCamera = false;

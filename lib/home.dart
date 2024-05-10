@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart'; // Add this import statement
+import 'package:flutter/cupertino.dart';
 import 'package:ht_2/editprofile.dart';
 import 'package:ht_2/favourite.dart';
 import 'package:ht_2/feedback.dart';
@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
     _animationController = AnimationController(
+      // add an animation to username
       vsync: this,
       duration: Duration(milliseconds: 500),
     );
@@ -75,8 +76,7 @@ class _HomePageState extends State<HomePage>
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                    'assets/images/bg4.jpg'), // Replace with your background image path
+                image: AssetImage('assets/images/bg4.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -109,6 +109,9 @@ class _HomePageState extends State<HomePage>
               ),
             ),
           ),
+
+          // three main features of the home page (Real-time translation, Learning Hub, Feedback)
+
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Column(
@@ -127,7 +130,6 @@ class _HomePageState extends State<HomePage>
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.grey[200],
                   ),
-                  // Other widgets...
                 ),
               ],
             ),
@@ -143,7 +145,6 @@ class _HomePageState extends State<HomePage>
                     color: Color.fromARGB(255, 254, 245, 74).withOpacity(0.4),
                     spreadRadius: 0,
                     blurRadius: 1,
-                    // changes the shadow direction
                   ),
                 ],
               ),
@@ -165,11 +166,13 @@ class _HomePageState extends State<HomePage>
           ),
         ],
       ),
+
+      // bottom navigation bar
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.orange,
-        unselectedItemColor:
-            Colors.grey[600], // Light color for unselected items
+        unselectedItemColor: Colors.grey[600],
         backgroundColor: Colors.transparent,
         elevation: 0,
         items: [
@@ -194,7 +197,7 @@ class _HomePageState extends State<HomePage>
           setState(() {
             _selectedIndex = index;
           });
-          // Handle navigation based on the selected index
+
           switch (index) {
             case 0:
               // Navigate to FavoritePage
@@ -206,6 +209,7 @@ class _HomePageState extends State<HomePage>
               );
               break;
             case 1:
+              // Stay in Home page
               break;
 
             case 2:
@@ -219,7 +223,6 @@ class _HomePageState extends State<HomePage>
               );
               break;
             default:
-              // Navigate to Home by default
               break;
           }
         },
@@ -233,6 +236,8 @@ class _HomePageState extends State<HomePage>
     super.dispose();
   }
 }
+
+// add background images and do decorations to those three main feature's buttons
 
 class RealTimeTranslationButton extends StatelessWidget {
   @override
@@ -251,8 +256,7 @@ class RealTimeTranslationButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage(
-                        'assets/images/rtt.jpg'), // Replace with your image path
+                    image: AssetImage('assets/images/rtt.jpg'),
                     fit: BoxFit.cover,
                   ),
                   boxShadow: [
@@ -337,7 +341,7 @@ class LearningHubButton extends StatelessWidget {
       height: 120,
       width: 250,
       child: Material(
-        elevation: 6, // Adjust the elevation as needed
+        elevation: 6,
         borderRadius: BorderRadius.circular(20),
         child: Stack(
           children: [
@@ -346,8 +350,7 @@ class LearningHubButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage(
-                        'assets/images/LH.jpg'), // Replace with your image path
+                    image: AssetImage('assets/images/LH.jpg'),
                     fit: BoxFit.cover,
                   ),
                   boxShadow: [
@@ -391,7 +394,7 @@ class LearningHubButton extends StatelessWidget {
                       if (states.contains(MaterialState.hovered)) {
                         return Colors.pinkAccent.withOpacity(0.1);
                       }
-                      return Colors.transparent; // Use the component's default.
+                      return Colors.transparent;
                     }),
                     shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
@@ -433,7 +436,7 @@ class FeedbackButton extends StatelessWidget {
       height: 100,
       width: 250,
       child: Material(
-        elevation: 6, // Adjust the elevation as needed
+        elevation: 6,
         borderRadius: BorderRadius.circular(20),
         child: Stack(
           children: [
@@ -442,8 +445,7 @@ class FeedbackButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: AssetImage(
-                        'assets/images/fb2.webp'), // Replace with your image path
+                    image: AssetImage('assets/images/fb2.webp'),
                     fit: BoxFit.cover,
                   ),
                   boxShadow: [

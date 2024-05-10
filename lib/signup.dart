@@ -23,12 +23,16 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+// Control the input fields for username, email, password, and confirm password in a user registration form.
+
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
 
+// user authentication operations such as sign up, sign in, and sign out.
   FirebaseAuth _auth = FirebaseAuth.instance;
+// store user data such as profiles, preferences, and other application-related information.
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
@@ -179,6 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _signUp() async {
+//trimmed values are then used for user authentication and validation during the registration process
     String username = _usernameController.text.trim();
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
@@ -257,7 +262,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       offset: Offset(1, 1),
                       blurRadius: 6,
                     ),
-                  ], // Change text color to orange
+                  ],
                 ),
               ),
             ),

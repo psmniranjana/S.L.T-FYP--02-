@@ -72,7 +72,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                         offset: Offset(1, 1),
                         blurRadius: 6,
                       ),
-                    ], // Change text color to orange
+                    ],
                   ),
                 ),
               ),
@@ -80,7 +80,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           );
         },
       );
-      return; // Stop the submission process
+      return;
     }
 
     // If all fields are filled, proceed with the submission
@@ -135,7 +135,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       offset: Offset(1, 1),
                       blurRadius: 6,
                     ),
-                  ], // Change text color to orange
+                  ],
                 ),
               ),
             ),
@@ -150,7 +150,6 @@ class _FeedbackPageState extends State<FeedbackPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: 0),
-        // Feedback text
         Text(
           'Feedbacks',
           style: TextStyle(
@@ -194,15 +193,17 @@ class _FeedbackPageState extends State<FeedbackPage> {
             ),
           ],
         ),
+
+        // star ratings
+
         SizedBox(height: 8.0),
         Container(
           width: 300,
           height: 60,
-          padding: EdgeInsets.all(10.0), // Add padding to the container
+          padding: EdgeInsets.all(10.0),
           decoration: BoxDecoration(
-            color: Color.fromARGB(82, 104, 101, 101)
-                .withOpacity(0.3), // Set background color
-            borderRadius: BorderRadius.circular(10.0), // Add border radius
+            color: Color.fromARGB(82, 104, 101, 101).withOpacity(0.3),
+            borderRadius: BorderRadius.circular(10.0),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -265,7 +266,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           ],
         ),
         SizedBox(height: 20),
-        // Buttons row
+
         Padding(
           padding: EdgeInsets.only(bottom: 10),
           child: Row(
@@ -290,8 +291,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               SizedBox(width: 20),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(
-                      context); // Navigate back without saving changes
+                  Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromARGB(255, 179, 20, 20),

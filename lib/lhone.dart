@@ -1,9 +1,7 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:ht_2/favourite.dart';
 import 'package:url_launcher/link.dart';
-import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
+import 'package:url_launcher/url_launcher.dart';
 
 class LHOnePage extends StatefulWidget {
   @override
@@ -31,8 +29,7 @@ class _LearningHubPageState extends State<LHOnePage> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                    'assets/images/LH1.png'), // Replace with your image path
+                image: AssetImage('assets/images/LH1.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -40,18 +37,14 @@ class _LearningHubPageState extends State<LHOnePage> {
           Center(
             child: Container(
               height: 500,
-              margin: EdgeInsets.symmetric(
-                  horizontal: 20), // Adjust margin as needed
+              margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                color: Colors.white
-                    .withOpacity(0.3), // Adjust opacity and color as needed
-                borderRadius:
-                    BorderRadius.circular(20), // Adjust border radius as needed
+                color: Colors.white.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(20),
               ),
               child: ListView(
                 children: [
                   SizedBox(height: 20),
-                  // List of websites with checkboxes or toggle buttons
                   GestureDetector(
                     onTap: () {
                       _launchURL(
@@ -80,10 +73,10 @@ class _LearningHubPageState extends State<LHOnePage> {
                                     blurRadius: 6,
                                   ),
                                 ],
-                              ), // Replace with your website 1 text
+                              ),
                             ),
                           ),
-                          SizedBox(height: 8), // Add line break
+                          SizedBox(height: 8),
                           Link(
                             uri: Uri.parse('https://www.lifeprint.com/'),
                             builder: (context, followLink) => MouseRegion(
@@ -140,7 +133,7 @@ class _LearningHubPageState extends State<LHOnePage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 8), // Add line break
+                          SizedBox(height: 8),
                           Link(
                             uri: Uri.parse(
                                 'https://www.lifeprint.com/asl101/pages-layout/concepts.htm'),
@@ -171,8 +164,7 @@ class _LearningHubPageState extends State<LHOnePage> {
                   SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
-                      _launchURL(
-                          'https://gallaudet.edu/asl-connect/'); // Launch the website
+                      _launchURL('https://gallaudet.edu/asl-connect/');
                     },
                     child: CheckboxListTile(
                       activeColor: Colors.orange,
@@ -197,10 +189,10 @@ class _LearningHubPageState extends State<LHOnePage> {
                                     blurRadius: 6,
                                   ),
                                 ],
-                              ), // Replace with your website 1 text
+                              ),
                             ),
                           ),
-                          SizedBox(height: 8), // Add line break
+                          SizedBox(height: 8),
                           Link(
                             uri:
                                 Uri.parse('https://gallaudet.edu/asl-connect/'),
@@ -228,7 +220,6 @@ class _LearningHubPageState extends State<LHOnePage> {
                           _toggleSite('Gallaudet University ASL Connect'),
                     ),
                   ),
-                  // Add more websites as needed
                 ],
               ),
             ),

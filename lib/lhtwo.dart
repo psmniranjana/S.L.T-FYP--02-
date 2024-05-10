@@ -1,9 +1,7 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:ht_2/favourite.dart';
 import 'package:url_launcher/link.dart';
-import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
+import 'package:url_launcher/url_launcher.dart';
 
 class LHTwoPage extends StatefulWidget {
   @override
@@ -31,8 +29,7 @@ class _LearningHubPageState extends State<LHTwoPage> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                    'assets/images/LH.jpg'), // Replace with your image path
+                image: AssetImage('assets/images/LH.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -40,18 +37,14 @@ class _LearningHubPageState extends State<LHTwoPage> {
           Center(
             child: Container(
               height: 500,
-              margin: EdgeInsets.symmetric(
-                  horizontal: 20), // Adjust margin as needed
+              margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                color: Colors.white
-                    .withOpacity(0.4), // Adjust opacity and color as needed
-                borderRadius:
-                    BorderRadius.circular(20), // Adjust border radius as needed
+                color: Colors.white.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(20),
               ),
               child: ListView(
                 children: [
                   SizedBox(height: 20),
-                  // List of websites with checkboxes or toggle buttons
                   GestureDetector(
                     onTap: () {
                       _launchURL(
@@ -81,10 +74,10 @@ class _LearningHubPageState extends State<LHTwoPage> {
                                     blurRadius: 6,
                                   ),
                                 ],
-                              ), // Replace with your website 1 text
+                              ),
                             ),
                           ),
-                          SizedBox(height: 8), // Add line break
+                          SizedBox(height: 8),
                           Link(
                             uri: Uri.parse(
                                 'https://commtechlab.msu.edu/sites/aslweb/browser.htm'),
@@ -143,7 +136,7 @@ class _LearningHubPageState extends State<LHTwoPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 8), // Add line break
+                          SizedBox(height: 8),
                           Link(
                             uri: Uri.parse(
                                 'https://www.spreadthesign.com/en.gb/search/'),
@@ -197,10 +190,10 @@ class _LearningHubPageState extends State<LHTwoPage> {
                                     blurRadius: 6,
                                   ),
                                 ],
-                              ), // Replace with your website 1 text
+                              ),
                             ),
                           ),
-                          SizedBox(height: 8), // Add line break
+                          SizedBox(height: 8),
                           Link(
                             uri: Uri.parse('https://www.asl.gs/'),
                             builder: (context, followLink) => MouseRegion(
@@ -227,7 +220,6 @@ class _LearningHubPageState extends State<LHTwoPage> {
                           _toggleSite('Gallaudet Dictionary of ASL'),
                     ),
                   ),
-                  // Add more websites as needed
                 ],
               ),
             ),

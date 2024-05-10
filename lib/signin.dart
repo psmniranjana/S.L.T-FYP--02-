@@ -11,10 +11,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sign In Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: SignInPage(),
     );
   }
@@ -26,8 +22,11 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  //text editing controllers to handle user input for email and password
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  //  instance of FirebaseAuth to handle authentication
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -36,8 +35,7 @@ class _SignInPageState extends State<SignInPage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-                'assets/images/bg3.jpg'), // Replace with your background image path
+            image: AssetImage('assets/images/bg3.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -49,12 +47,12 @@ class _SignInPageState extends State<SignInPage> {
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 255, 255, 255)
                   .withOpacity(0.2), // Background box color with opacity
-              borderRadius: BorderRadius.circular(30), // Rounded corners
+
+              borderRadius: BorderRadius.circular(30),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // 'Sign In' text at the top center of the page
                 Align(
                   alignment: Alignment.topCenter,
                   child: Text(
@@ -114,6 +112,7 @@ class _SignInPageState extends State<SignInPage> {
                       );
                     } catch (e) {
                       print('Error signing in: $e');
+
                       // Handle sign-in errors (e.g., invalid email/password)
                       showDialog(
                         context: context,
@@ -150,7 +149,7 @@ class _SignInPageState extends State<SignInPage> {
                                         offset: Offset(1, 1),
                                         blurRadius: 6,
                                       ),
-                                    ], // Change text color to orange
+                                    ],
                                   ),
                                 ),
                               ),
@@ -168,8 +167,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(
-                        255, 116, 51, 13), // Change button color to yellow
+                    backgroundColor: Color.fromARGB(255, 116, 51, 13),
                   ),
                 ),
                 SizedBox(height: 16.0),

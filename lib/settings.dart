@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ht_2/editprofile.dart';
 import 'package:ht_2/favourite.dart';
 import 'package:ht_2/home.dart';
-// Import the SettingsPage
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -23,20 +22,18 @@ class _SettingsPageState extends State<SettingsPage> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                    'assets/images/bg4.jpg'), // Replace 'background_image.jpg' with your image asset
+                image: AssetImage('assets/images/bg4.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          // Rest of the content
+
           SingleChildScrollView(
             padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(height: 20),
-                // Centered "Settings" text
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 20),
                   child: Center(
@@ -68,8 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Color.fromARGB(255, 179, 20, 20), // Set button color
+                    backgroundColor: Color.fromARGB(255, 179, 20, 20),
                   ),
                   child: Text(
                     'Edit Your Profile',
@@ -86,11 +82,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                // ListTile with a Switch wrapped in a Container to add a border to the Switch
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.red, // Border color set to maroon
+                      color: Colors.red,
                     ),
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -99,20 +94,16 @@ class _SettingsPageState extends State<SettingsPage> {
                     subtitle: const Text(
                         'App with this permission can take pictures and record video'),
                     trailing: Switch(
-                      value: true, // Replace with actual value
-                      onChanged: (value) {
-                        // Update permission 1
-                      },
-                      activeTrackColor: Color.fromARGB(255, 179, 20,
-                          20), // Change active track color to orange
+                      value: true,
+                      onChanged: (value) {},
+                      activeTrackColor: Color.fromARGB(255, 179, 20, 20),
                     ),
                   ),
                 ),
-                // ListTile with a Switch wrapped in a Container to add a border to the Switch
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.red, // Border color set to maroon
+                      color: Colors.red,
                     ),
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -120,12 +111,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     title: Text('Microphone'),
                     subtitle: Text('App with this permission can record audio'),
                     trailing: Switch(
-                      value: false, // Replace with actual value
-                      onChanged: (value) {
-                        // Update permission 2
-                      },
-                      activeTrackColor: Color.fromARGB(255, 179, 20,
-                          20), // Change active track color to orange
+                      value: false,
+                      onChanged: (value) {},
+                      activeTrackColor: Color.fromARGB(255, 179, 20, 20),
                     ),
                   ),
                 ),
@@ -137,23 +125,20 @@ class _SettingsPageState extends State<SettingsPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                // ListTile with a Switch wrapped in a Container to add a border to the Switch
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.red, // Border color set to maroon
+                      color: Colors.red,
                     ),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: ListTile(
                     title: Text('Allow Notifications'),
                     trailing: Switch(
-                      value: true, // Replace with actual value
-                      onChanged: (value) {
-                        // Update notification settings
-                      },
+                      value: true,
+                      onChanged: (value) {},
                       activeTrackColor: Color.fromARGB(255, 179, 20,
-                          20), // Change active track color to orange
+                          20), // Change active track color to orang
                     ),
                   ),
                 ),
@@ -165,23 +150,19 @@ class _SettingsPageState extends State<SettingsPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                // ListTile with a Switch wrapped in a Container to add a border to the Switch
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.red, // Border color set to maroon
+                      color: Colors.red,
                     ),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: ListTile(
                     title: Text('Allow Location Access'),
                     trailing: Switch(
-                      value: true, // Replace with actual value
-                      onChanged: (value) {
-                        // Update location settings
-                      },
-                      activeTrackColor: Color.fromARGB(255, 179, 20,
-                          20), // Change active track color to orange
+                      value: true,
+                      onChanged: (value) {},
+                      activeTrackColor: Color.fromARGB(255, 179, 20, 20),
                     ),
                   ),
                 ),
@@ -190,6 +171,8 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ],
       ),
+
+      //Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -220,7 +203,7 @@ class _SettingsPageState extends State<SettingsPage> {
           });
           switch (index) {
             case 0:
-              // Handle Favorites navigation
+              // Favorites navigation
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -230,20 +213,18 @@ class _SettingsPageState extends State<SettingsPage> {
               );
               break;
             case 1:
-              // Handle Home navigation
+              // Home navigation
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => HomePage()),
               );
               break;
             case 2:
-              // Handle Translation History navigation
-              // You can add your logic here
+              // Translation History navigation
               break;
             case 3:
-              // Handle Settings navigation
-              Navigator.pop(
-                  context); // Pop the SettingsPage to go back to the previous page
+              // Settings navigation
+              
               break;
             default:
               break;

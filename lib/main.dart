@@ -8,8 +8,7 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Enter full-screen
-  // for setting orientations to portrait only
+  
 
   _initializeFirebase();
   runApp(const MyApp());
