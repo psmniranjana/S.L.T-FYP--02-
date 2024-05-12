@@ -1,16 +1,13 @@
-# ht_2
+1. Download the Project Folder: Begin by downloading the project folder from the provided source.
 
-A new Flutter project.
+2. Install Dependencies: Navigate to the project directory using your terminal or command prompt, and run the following command to install the necessary dependencies:
 
-## Getting Started
+flutter pub get
 
-This project is a starting point for a Flutter application.
+3. Run the Application: After installing the dependencies, you can run the application using the following command:
 
-A few resources to get you started if this is your first Flutter project:
+flutter run
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+4. Explore HandTalker: Once the application is successfully launched, explore the features of HandTalker to experience its capabilities.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+By following these steps, you should be able to set up and run the HandTalker project seamlessly. If you encounter any issues during the setup process, please refer to the troubleshooting section in the project documentation or reach out to the project maintainers for assistance. Thank you!
